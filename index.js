@@ -8,6 +8,10 @@ app.get('/', (req, res)=>{
     res.send("Simple Node");
 } );
 
+app.post('/products', (req, res)=>{
+    res.send('Post Data');
+})
+
 app.use(cors());
 
 
