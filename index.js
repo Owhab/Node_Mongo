@@ -2,17 +2,25 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 
 app.get('/', (req, res)=>{
     res.send("Simple Node");
 } );
 
-app.post('/products', (req, res)=>{
-    res.send('Post Data');
-})
+app.post('/products', (req, res) => {
+    // ... your API code
+  
+    res.header('Access-Control-Allow-Origin', '*');
+    res.send('Success');
+    console.log("Post API Called");
+  });
 
-app.use(cors());
+app.use(cors({
+    origin: '*'
+  }));
+app.use(bodyParser.json());
 
 
 
