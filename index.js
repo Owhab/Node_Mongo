@@ -10,11 +10,17 @@ app.get('/', (req, res)=>{
     res.send("Simple Node");
 } );
 
+
+
 app.post('/products', (req, res) => {
     // ... your API code
   
     res.header('Access-Control-Allow-Origin', '*');
     res.send('Success');
+
+    const product = req.body;
+     product.id = products.length + 1;
+    products.push(product);
     console.log("Post API Called");
     console.log(req.body);
   });
