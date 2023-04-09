@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 
+app.use(bodyParser.json());
 app.get('/', (req, res)=>{
     res.send("Simple Node");
 } );
@@ -15,12 +16,13 @@ app.post('/products', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.send('Success');
     console.log("Post API Called");
+    console.log(req.body);
   });
 
 app.use(cors({
     origin: '*'
   }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 
 
