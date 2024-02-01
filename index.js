@@ -26,7 +26,10 @@ app.get("/api/courses", (req, res) => {
 });
 
 app.get("/api/courses/:id", (req, res) => {
-  res.send(req.params.id);
+  const course = courses.find((c) => c.id === parseInt(req.params.id));
+
+  if (!course) return res.status(404).send("Requested course is not found");
+  res.send(course);
 });
 
 app.get("/api/posts/:year/:month", (req, res) => {
