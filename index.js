@@ -1,6 +1,8 @@
 const express = require("express");
+const logger = require("./logger");
 const app = express();
 app.use(express.json());
+app.use(logger);
 
 const courses = [
   {
@@ -54,7 +56,7 @@ app.post("/api/courses", (req, res) => {
 
 app.put("/api/courses/:id", (req, res) => {
   const course = courses.find((c) => c.id === parseInt(req.params.id));
-  if (!course) res.status(404).send("Requested course is not found");
+  if (!course) return res.status(404).send("Requested course is not found");
   course.name = req.body.name;
   res.send(course);
 });
