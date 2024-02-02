@@ -1,8 +1,9 @@
 const express = require("express");
 const logger = require("./logger");
+const config = require("config");
 const app = express();
 app.use(express.json());
-app.use(logger);
+// app.use(logger);
 
 const courses = [
   {
@@ -70,6 +71,9 @@ app.delete("/api/courses/:id", (req, res) => {
   courses.splice(index, 1);
   res.send(course);
 });
+
+console.log("Application Name: ", config.get("name"));
+console.log("Mail Server: ", config.get("mail.host"));
 
 app.listen(port, () => {
   console.log("Listening on port: ", port);
