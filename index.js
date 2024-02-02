@@ -52,6 +52,12 @@ app.post("/api/courses", (req, res) => {
   res.send(course);
 });
 
+app.put("/api/courses/:id", (req, res) => {
+  const course = courses.find((c) => c.id === parseInt(req.params.id));
+  if (!course) res.status(400).send("Requested course is not found");
+  course.name = req.body.name;
+  res.send(course);
+});
 app.listen(port, () => {
   console.log("Listening on port: ", port);
 });
