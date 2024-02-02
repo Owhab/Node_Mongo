@@ -5,6 +5,9 @@ const app = express();
 app.use(express.json());
 // app.use(logger);
 
+app.set("view engine", "pug");
+app.set("views", "./views");
+
 const courses = [
   {
     id: 1,
@@ -22,7 +25,10 @@ const courses = [
 
 const port = process.env.PORT || 4000;
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.render("index", {
+    title: "Simple Node APP",
+    message: "Hello World",
+  });
 });
 
 app.get("/api/courses", (req, res) => {
