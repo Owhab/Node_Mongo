@@ -20,7 +20,7 @@ const Course = mongoose.model("Course", courseSchema);
 
 async function CreateCourse() {
   const course = new Course({
-    name: "Full Stack Development",
+    name: "MERN Stack Development",
     author: "Owhab",
     tags: ["Frontend", "Backend"],
     isPublished: true,
@@ -71,8 +71,9 @@ async function UpdateCourse(id) {
 
 // Delete a course
 async function RemoveCourse(id) {
-  const result = await Course.deleteOne({ _id: id });
-  console.log("Course Deleted Successfully", result);
+  // const result = await Course.deleteOne({ _id: id });
+  const course = await Course.findByIdAndDelete({ _id: id });
+  console.log("Course Deleted Successfully", course);
 }
 
-RemoveCourse("65be5769259bfc96516ec842");
+RemoveCourse("65be4e199412a435cf970184");
