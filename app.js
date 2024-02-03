@@ -4,7 +4,9 @@ mongoose
   .then(() =>
     console.log("Successfully connected to the mongodb local database..")
   )
-  .catch((error) => console.log("Failed to connect to the mongodb database.."));
+  .catch((error) =>
+    console.log("Failed to connect to the mongodb database..", error.message)
+  );
 
 const courseSchema = new mongoose.Schema({
   name: String,
@@ -38,4 +40,16 @@ async function GetCourses() {
   console.log("All Courses: ", result);
 }
 
-GetCourses();
+// GetCourses();
+
+async function UpdateCourse(id) {
+  const course = await Course.findById(id);
+  if (!course) return;
+
+  course.isPublished = false;
+  course.author = "Abdul Owhab";
+  const result = await course.save();
+  console.log("Course updated: ", result);
+}
+
+UpdateCourse("65be5782c3b0b14559c230a4");
