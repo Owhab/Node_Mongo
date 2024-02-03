@@ -10,21 +10,29 @@ const courseSchema = new mongoose.Schema({
   name: String,
   author: String,
   tags: [String],
+  date: { type: Date, default: Date.now },
   isPublished: Boolean,
-  Date: { type: Date, default: Date.now },
 });
 
 const Course = mongoose.model("Course", courseSchema);
 
 async function CreateCourse() {
   const course = new Course({
-    name: "JavaScript Development",
-    author: "Abdul Owhab",
+    name: "Full Stack Development",
+    author: "Owhab",
     tags: ["Frontend", "Backend"],
     isPublished: true,
   });
 
   const result = await course.save();
-  console.log(result);
+  console.log("Created Course: ", result);
 }
-CreateCourse();
+
+// CreateCourse();
+
+async function GetCourses() {
+  const result = await Course.find();
+  console.log("All Courses: ", result);
+}
+
+GetCourses();
