@@ -31,7 +31,10 @@ async function CreateCourse() {
 // CreateCourse();
 
 async function GetCourses() {
-  const result = await Course.find();
+  const result = await Course.find()
+    .limit(10)
+    .sort({ name: 1 })
+    .select({ name: 1, tags: 1 });
   console.log("All Courses: ", result);
 }
 
