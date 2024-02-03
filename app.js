@@ -42,14 +42,29 @@ async function GetCourses() {
 
 // GetCourses();
 
-async function UpdateCourse(id) {
-  const course = await Course.findById(id);
-  if (!course) return;
+// Update Course in Query First Approach
+// async function UpdateCourse(id) {
+//   const course = await Course.findById(id);
+//   if (!course) return;
 
-  course.isPublished = false;
-  course.author = "Abdul Owhab";
-  const result = await course.save();
-  console.log("Course updated: ", result);
+//   course.isPublished = false;
+//   course.author = "Abdul Owhab";
+//   const result = await course.save();
+//   console.log("Course updated: ", result);
+// }
+
+async function UpdateCourse(id) {
+  const course = await Course.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        isPublished: false,
+        author: "Owhab",
+      },
+    },
+    { new: true }
+  );
+  console.log("Course Data Updated: ", course);
 }
 
 UpdateCourse("65be5782c3b0b14559c230a4");
