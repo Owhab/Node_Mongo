@@ -9,7 +9,7 @@ mongoose
   );
 
 const courseSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
@@ -26,11 +26,15 @@ async function CreateCourse() {
     isPublished: true,
   });
 
-  const result = await course.save();
-  console.log("Created Course: ", result);
+  try {
+    const result = await course.save();
+    console.log("Created Course: ", result);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
-// CreateCourse();
+CreateCourse();
 
 async function GetCourses() {
   const result = await Course.find()
@@ -76,4 +80,4 @@ async function RemoveCourse(id) {
   console.log("Course Deleted Successfully", course);
 }
 
-RemoveCourse("65be4e199412a435cf970184");
+// RemoveCourse("65be4e199412a435cf970184");
