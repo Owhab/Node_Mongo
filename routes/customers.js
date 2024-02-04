@@ -25,4 +25,13 @@ router.get("/", async (req, res) => {
   res.send(customers);
 });
 
+router.post("/", async (req, res) => {
+  let customer = await new Customer();
+  customer.name = req.body.name;
+  customer.isGold = req.body.isGold;
+  customer.phone = req.body.phone;
+  customer.save();
+  res.send(customer);
+});
+
 module.exports = router;
