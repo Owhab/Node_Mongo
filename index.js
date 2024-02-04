@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const logger = require("./middleware/logger");
+const customers = require("./routes/customers");
 const config = require("config");
 const courses = require("./routes/courses");
 const posts = require("./routes/posts");
 const app = express();
+
+mongoose
+  .connect("mongodb://localhost/playground")
+  .then(() => console.log("Connected to mongodb"))
+  .catch((error) => console.log("Failed to connect mongodb"));
+
 app.use(express.json());
+app.use("/api/customers", customers);
 
 // app.use(logger);
 

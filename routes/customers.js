@@ -1,9 +1,9 @@
+const mongoose = require("mongoose");
 const express = require("express");
-
 const router = express.Router();
 
-router.get("/api/posts/:year/:month", (req, res) => {
-  res.send(req.query);
+router.get("/", (req, res) => {
+  res.send("Hello World");
 });
 
 module.exports = router;
