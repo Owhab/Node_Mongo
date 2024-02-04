@@ -9,11 +9,27 @@ mongoose
   );
 
 const courseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+    maxlength: 255,
+    minlength: 5,
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ["web", "mobile", "desktop"],
+  },
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () {
+      return this.isPublished;
+    },
+  },
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -22,8 +38,10 @@ async function CreateCourse() {
   const course = new Course({
     name: "MERN Stack Development",
     author: "Owhab",
+    category: "-",
     tags: ["Frontend", "Backend"],
     isPublished: true,
+    price: 5000,
   });
 
   try {
