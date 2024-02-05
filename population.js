@@ -5,23 +5,18 @@ mongoose
   .then(() => console.log("Connected to Mongodb.."))
   .catch((error) => console.log("Failed to connect Mongodb.."));
 
-const Author = mongoose.model(
-  "Author",
-  new mongoose.Schema({
-    name: String,
-    bio: String,
-    website: String,
-  })
-);
+const authorSchema = new mongoose.Schema({
+  name: String,
+  bio: String,
+  website: String,
+});
+const Author = mongoose.model("Author", authorSchema);
 
 const Course = mongoose.model(
   "Course",
   new mongoose.Schema({
     name: String,
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Author",
-    },
+    author: authorSchema,
   })
 );
 
@@ -51,6 +46,15 @@ async function listCourses() {
   console.log(courses);
 }
 
+async function updateAuthor(courseId) {
+  const course = await Course.findById(courseId);
+  course.author.name = "Abdul Owhab";
+  course.save();
+  console.log(course);
+}
+
+updateAuthor("65c1231a5445587c49ba2164");
+
 // createAuthor("Owhab", "None", "Test");
-// createCourse("Full Stack Development", "65c11a8f1cf584216924b73e");
-listCourses();
+// createCourse("Full Stack Development", new Author({ name: "Owhab" }));
+// listCourses();
